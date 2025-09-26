@@ -1,0 +1,6 @@
+# pixiv
++.pixiv.net
++.pximg.net
++.fanbox.cc
+# dlsite
++.dlsite.com
