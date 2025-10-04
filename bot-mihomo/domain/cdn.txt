@@ -1,7 +1,7 @@
 #########################################
 # Sukka's Ruleset - CDN Domains
-# Last Updated: 2025-10-01T13:27:33.147Z
-# Size: 3955
+# Last Updated: 2025-10-04T14:35:51.887Z
+# Size: 3956
 # License: AGPL 3.0
 # Homepage: https://ruleset.skk.moe
 # GitHub: https://github.com/SukkaW/Surge
@@ -2485,6 +2485,7 @@ img.freepik.com
 static.foxnews.com
 a57.foxnews.com
 hp.foxnews.com
+static-cf.foxdata.com
 +.fourhoi.com
 usercontent.flodesk.com
 assets.flodesk.com
