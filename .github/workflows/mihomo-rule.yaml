@@ -1,0 +1,18 @@
+name: 下载并处理 mihomo 规则
+on: # 触发条件
+  push: # 推送触发
+  workflow_dispatch: # 手动触发
+  schedule: # 定时触发
+    - cron: "15 15 * * *"
+jobs:
+  one:
+    runs-on: ubuntu-latest # 使用最新 Ubuntu 系统运行
+    steps: # 步骤
+      - name: 检出代码仓库
+        uses: actions/checkout@main
+      - name: 下载规则
+        run: bash dev/curl-rule.sh
+      - name: 处理规则
+        run: bash dev/process-rule.sh
+      - name: 提交并推送更新
+        run: bash dev/git-push.sh
