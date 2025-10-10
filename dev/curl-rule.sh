@@ -30,6 +30,7 @@ download_with_retry() {
 # 定义下载任务列表
 download_tasks=(
     "https://ruleset.skk.moe/Clash/ip/china_ip.txt tmp/cnipv4.txt"
+    "https://ruleset.skk.moe/Clash/ip/china_ip_ipv6.txt tmp/cnipv6.txt"
     "https://core.telegram.org/resources/cidr.txt tmp/tgip.txt"
     "https://ruleset.skk.moe/Clash/domainset/cdn.txt tmp/cdn_domain.txt"
     "https://ruleset.skk.moe/Clash/non_ip/cdn.txt tmp/cdn_classical.txt"

@@ -5,8 +5,8 @@ echo "🔄 开始处理规则文件..."
 # 创建输出目录
 mkdir -p bot-mihomo/{domain,classical,ip}
 
-# 中国 IPv4
-cat tmp/cnipv4.txt > bot-mihomo/ip/cn.txt
+# 中国 IPv4 & IPv6 合并
+cat tmp/cnipv4.txt tmp/cnipv6.txt > bot-mihomo/ip/cn.txt
 
 # Telegram IP
 cp tmp/tgip.txt bot-mihomo/ip/tgip.txt
