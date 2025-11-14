@@ -1,0 +1,10 @@
+# bahamut
++.bahamut.akamaized.net
++.bahamut.com.tw
++.gamer.com.tw
++.gamer2-cds.cdn.hinet.net
++.gamer-cds.cdn.hinet.net
+# ptt
++.ptt.cc
+# 台湾兜底
++.tw
