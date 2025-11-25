@@ -70,7 +70,6 @@ declare -a DOWNLOAD_TASKS=(
     "https://ruleset.skk.moe/Clash/non_ip/domestic.txt|tmp/domestic.txt|国内规则"
     "https://ruleset.skk.moe/Clash/non_ip/lan.txt|tmp/lan_classical.txt|局域网经典规则"
     "https://ruleset.skk.moe/Clash/ip/lan.txt|tmp/lan_ip.txt|局域网IP规则"
-    "https://github.com/TG-Twilight/AWAvenue-Ads-Rule/raw/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash.yaml|tmp/awavenue.yaml|AWAvenue广告过滤规则"
 )
 
 # 统计变量

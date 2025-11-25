@@ -22,7 +22,4 @@ cp tmp/domestic.txt bot-mihomo/classical/cn.txt
 # LAN 规则合并（classical）
 cat tmp/lan_classical.txt tmp/lan_ip.txt > bot-mihomo/classical/lan.txt
 
-# AWAvenue AD
-yq -r '.payload[]' tmp/awavenue.yaml > bot-mihomo/domain/awavenue.txt
-
 echo "✅ 规则处理完成！输出目录：bot-mihomo/"
