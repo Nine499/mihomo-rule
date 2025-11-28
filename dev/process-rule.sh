@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 echo "🔄 开始处理规则文件..."
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -x
 # 脚本信息
 echo "🚀 开始执行 Git 自动提交脚本..."
 echo "📅 时间: $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
