@@ -1,0 +1,10 @@
+# pixiv
++.pixiv.net
++.pximg.net
++.fanbox.cc
+# dlsite
++.dlsite.com
+# 批評空間
++.erogamescape.org
+# 日本兜底
++.jp
