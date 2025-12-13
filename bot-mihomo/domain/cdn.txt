@@ -1,7 +1,7 @@
 #########################################
 # Sukka's Ruleset - CDN Domains
-# Last Updated: 2025-12-12T05:22:54.201Z
-# Size: 4124
+# Last Updated: 2025-12-13T06:49:01.975Z
+# Size: 4132
 # License: AGPL 3.0
 # Homepage: https://ruleset.skk.moe
 # GitHub: https://github.com/SukkaW/Surge
@@ -185,6 +185,7 @@ media.pullopen.xyz
 image.jnislniv.xyz
 +.hencover.xyz
 +.flk-ipfs.xyz
++.fembeqv2.xyz
 +.zorocdn.xyz
 +.pornimg.xyz
 +.jstatic.xyz
@@ -349,7 +350,6 @@ cdn.mathjax.org
 pcz.javidol.org
 +.haproxy.org
 +.graphql.org
-+.f-droid.org
 web-static.archive.org
 image.ap-mail.org
 +.99avcdn.org
@@ -409,6 +409,7 @@ ps.w.org
 s.w.org
 ooo.0o0.ooo
 +.usercontent.one
+wiki.metacubex.one
 storageapi.fleek.one
 static.xns.one
 +.ipfs.jbb.one
@@ -817,6 +818,8 @@ img.skk.moe
 +.cdn.skk.moe
 objects.hit.moe
 assets-cdn.anh.moe
+static.ahu.moe
+file.ahu.moe
 +.cloudflare.ltd
 static.coinall.ltd
 image.acg.lol
@@ -1533,7 +1536,7 @@ resources.help.salesforce.com
 wp.salesforce.com
 cdn.safecharge.com
 +.ipfs.runfission.com
-cdn.report-uri.com
++.report-uri.com
 qmod.quotemedia.com
 app.quotemedia.com
 cdn.promotekit.com
@@ -1905,6 +1908,7 @@ assets.grammarly.com
 image.send.grammarly.com
 widget.gotolstoy.com
 play.gotolstoy.com
++.gitmirror.com
 +.assets.getpocket.com
 i.geekflare.com
 mosaic-blender.fxtwitter.com
@@ -3519,6 +3523,7 @@ static.iyf.tv
 lain.bgm.tv
 embed-v2.testimonial.to
 +.ninjastream.to
+icdn.missav123.to
 +.easylist.to
 +.pixhost.to
 img.sflix.to
@@ -3527,6 +3532,9 @@ media.mas.to
 media2.dev.to
 assets.dev.to
 media.dev.to
++.2026cdn.sx
++.2025cdn.sx
++.2024cdn.sx
 video2.7mmtv.sx
 video1.7mmtv.sx
 piccdn.7mmtv.sx
