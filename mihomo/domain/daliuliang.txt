@@ -1,2 +1,2 @@
 +.uhdnow.com
-*.gofile.io
++.gofile.io
