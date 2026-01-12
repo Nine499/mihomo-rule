@@ -1,9 +1,31 @@
+# dmm
++.dmm.com
++.dmm-extension.com
++.dmmapis.com
++.api-p.videomarket.jp
++.dmm.co.jp
++.dmmrex.com
 # pixiv
-+.pixiv.net
-+.pximg.net
++.booth.pm
 +.fanbox.cc
++.pixiv.co.jp
++.pixiv.help
++.pixiv.me
++.pixiv.net
++.pixiv.org
++.pixiv-recommend.net
++.pixivision.net
++.pximg.net
 # dlsite
++.chobit.cc
++.ci-en.jp
++.ci-en.net
 +.dlsite.com
++.dlsite.com.tw
++.dlsite.jp
++.dlsitestudio.com
++.nijiyome.jp
++.triokini.com
 # 批評空間
 +.erogamescape.org
 # 日本兜底
