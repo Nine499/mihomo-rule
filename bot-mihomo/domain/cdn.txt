@@ -1,7 +1,7 @@
 #########################################
 # Sukka's Ruleset - CDN Domains
-# Last Updated: 2026-01-23T13:53:41.943Z
-# Size: 4239
+# Last Updated: 2026-01-24T13:07:42.212Z
+# Size: 4246
 # License: AGPL 3.0
 # Homepage: https://ruleset.skk.moe
 # GitHub: https://github.com/SukkaW/Surge
@@ -481,6 +481,7 @@ sourcemaps.squarespace.net
 static-resource.np.community.playstation.net
 akamai-origin.myanimelist.net
 cdn.myanimelist.net
+sdk-static.loyaltylion.net
 sdk.loyaltylion.net
 +.f.hubspotfree.net
 +.hsappstatic.net
@@ -1568,6 +1569,7 @@ pics2.serviporno.com
 pics.serviporno.com
 +.cdn.serverable.com
 +.sentry-cdn.com
+static-www.sendsafely.com
 assets.sendinblue.com
 +.sbcdnvideo.com
 resources.help.salesforce.com
@@ -1830,6 +1832,7 @@ cdn-service.jp.sumologic.com
 +.proxy1.startpage.com
 +.proxy.startpage.com
 content-prod-live.cert.starbucks.com
++.ss-domain.com
 rs-cdn.splashtop.com
 static.spankbang.com
 lecontent.sololearn.com
@@ -2241,6 +2244,7 @@ snippet.growsumo.com
 +.widget.cluster.groovehq.com
 +.gravatar.com
 cdn.gofundme.com
+static.goaffpro.com
 static.gigabyte.com
 cdn.ghostery.com
 cdn.getkoala.com
@@ -2401,6 +2405,7 @@ i.xgroovy.com
 +.wpmucdn.com
 static.community.workday.com
 static.workday.com
+static-documents.wizards.com
 time.windows.com
 +.uploads-ssl.webflow.com
 screenshots.webflow.com
@@ -3373,6 +3378,7 @@ i.bang.com
 img.atom.com
 g-static.ap4r.com
 +.a1tb.com
+content.9gtb.com
 bundle.9gtb.com
 accounts-cdn.9gag.com
 bundle.5gtb.com
@@ -3875,6 +3881,7 @@ js-cdn.blockchair.io
 +.wixstudio.io
 cdn.transcend.io
 static.tokenview.io
+storage.synctrack.io
 cdn.simplesat.io
 assets.keysquare.io
 media.hachyderm.io
