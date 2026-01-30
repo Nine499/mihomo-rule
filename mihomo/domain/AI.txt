@@ -1,0 +1,4 @@
++.notebooklm.google
++.notebooklm.google.com
++.grok.com
++.x.ai
