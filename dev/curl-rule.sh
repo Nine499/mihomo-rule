@@ -52,6 +52,7 @@ downloads=(
     "https://ruleset.skk.moe/Clash/non_ip/domestic.txt|tmp/domestic.txt"
     "https://ruleset.skk.moe/Clash/non_ip/lan.txt|tmp/lan_classical.txt"
     "https://ruleset.skk.moe/Clash/ip/lan.txt|tmp/lan_ip.txt"
+    "https://ruleset.skk.moe/Clash/non_ip/ai.txt|tmp/ai.txt"
 )
 
 # 开始下载

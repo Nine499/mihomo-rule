@@ -99,6 +99,9 @@ copy_file "tmp/domestic.txt" "bot-mihomo/classical/cn.txt" "国内规则"
 # 合并局域网规则
 merge_files "tmp/lan_classical.txt tmp/lan_ip.txt" "bot-mihomo/classical/lan.txt" "局域网规则"
 
+# 复制 AI 规则
+copy_file "tmp/ai.txt" "bot-mihomo/classical/ai.txt" "AI 规则"
+
 # 输出统计
 echo ""
 echo "📊 处理完成"
