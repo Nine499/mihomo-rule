@@ -1,4 +1,4 @@
-name: 下载并处理 mihomo 规则
+name: 更新 mihomo 规则
 
 on:
   workflow_dispatch:
@@ -14,16 +14,21 @@ concurrency:
 
 jobs:
   update-rules:
+    name: 下载 -> 处理 -> 提交
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: bash
     steps:
-      - name: 检出代码仓库
-        uses: actions/checkout@main
+      - name: 检出仓库
+        uses: actions/checkout@v4
 
       - name: 下载规则
-        run: bash dev/curl-rule.sh
+        run: ./dev/curl-rule.sh
 
       - name: 处理规则
-        run: bash dev/process-rule.sh
+        run: ./dev/process-rule.sh
 
-      - name: 提交并推送更新
-        run: bash dev/git-push.sh
+      - name: 提交并推送
+        run: ./dev/git-push.sh

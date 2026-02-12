@@ -1,114 +1,81 @@
 #!/bin/bash
 set -euo pipefail
 
-# ============================================================================
-# 规则处理脚本
-# 功能：处理下载的规则文件，合并、复制到目标目录，并清理临时文件
-# ============================================================================
+# 这个脚本负责把 tmp/ 的下载结果整理到 bot-mihomo/。
+# 缺文件会记为失败，最后统一给出统计。
 
-# ----------------------------------------------------------------------------
-# 配置区域
-# ----------------------------------------------------------------------------
 readonly INPUT_DIR="tmp"
 readonly OUTPUT_DIR="bot-mihomo"
 
-# ----------------------------------------------------------------------------
-# 函数定义
-# ----------------------------------------------------------------------------
+info() { printf '[INFO] %s\n' "$*"; }
+warn() { printf '[WARN] %s\n' "$*"; }
+err() { printf '[ERROR] %s\n' "$*"; }
 
-log_info()  { echo -e "\033[32m[INFO]\033[0m $*"; }
-log_warn()  { echo -e "\033[33m[WARN]\033[0m $*"; }
-log_error() { echo -e "\033[31m[ERROR]\033[0m $*"; }
+copy_rule() {
+  local src="$1"
+  local dst="$2"
+  local name="$3"
 
-# 合并多个文件
-merge_files() {
-    local output="$1"
-    local desc="$2"
-    shift 2
-    local sources=("$@")
-    
-    # 检查所有源文件
-    for src in "${sources[@]}"; do
-        if [[ ! -f "$src" ]]; then
-            log_warn "跳过 [$desc]: 缺失文件 $(basename "$src")"
-            return 1
-        fi
-    done
-    
-    # 合并文件（去重）
-    cat "${sources[@]}" | sort -u > "$output"
-    log_info "合并完成 [$desc] ($(wc -l < "$output") 行)"
-    return 0
+  if [[ ! -f "$src" ]]; then
+    warn "跳过: $name (缺少文件 $(basename "$src"))"
+    return 1
+  fi
+
+  cp "$src" "$dst"
+  info "复制完成: $name ($(wc -l < "$dst") 行)"
+  return 0
 }
 
-# 复制单个文件
-copy_file() {
-    local src="$1"
-    local dst="$2"
-    local desc="$3"
-    
+merge_rules() {
+  local dst="$1"
+  local name="$2"
+  shift 2
+  local src
+
+  for src in "$@"; do
     if [[ ! -f "$src" ]]; then
-        log_warn "跳过 [$desc]: 源文件不存在"
-        return 1
+      warn "跳过: $name (缺少文件 $(basename "$src"))"
+      return 1
     fi
-    
-    cp "$src" "$dst"
-    log_info "复制完成 [$desc] ($(wc -l < "$dst") 行)"
-    return 0
+  done
+
+  sort -u "$@" > "$dst"
+  info "合并完成: $name ($(wc -l < "$dst") 行)"
+  return 0
 }
 
-# ----------------------------------------------------------------------------
-# 主流程
-# ----------------------------------------------------------------------------
+main() {
+  local success failed
 
-echo ""
-echo "=========================================="
-echo "       开始处理规则文件"
-echo "=========================================="
-echo ""
-
-# 检查输入目录
-if [[ ! -d "$INPUT_DIR" ]]; then
-    log_error "输入目录不存在: $INPUT_DIR"
-    log_info "请先运行 ./curl-rule.sh 下载规则文件"
+  if [[ ! -d "$INPUT_DIR" ]]; then
+    err "找不到输入目录: $INPUT_DIR"
+    err "请先运行 ./dev/curl-rule.sh"
     exit 1
-fi
+  fi
 
-# 创建输出目录结构
-mkdir -p "$OUTPUT_DIR"/{domain,classical,ip}
+  mkdir -p "$OUTPUT_DIR/ip" "$OUTPUT_DIR/domain" "$OUTPUT_DIR/classical"
 
-# 统计
-success=0
-failed=0
+  success=0
+  failed=0
 
-# ---- IP 规则 ----
-merge_files "$OUTPUT_DIR/ip/cn.txt" "中国 IP" "$INPUT_DIR/cnipv4.txt" "$INPUT_DIR/cnipv6.txt" && ((success++)) || ((failed++))
-copy_file "$INPUT_DIR/tgip.txt" "$OUTPUT_DIR/ip/tgip.txt" "Telegram IP" && ((success++)) || ((failed++))
+  merge_rules "$OUTPUT_DIR/ip/cn.txt" "中国 IP" "$INPUT_DIR/cnipv4.txt" "$INPUT_DIR/cnipv6.txt" && success=$((success + 1)) || failed=$((failed + 1))
+  copy_rule "$INPUT_DIR/tgip.txt" "$OUTPUT_DIR/ip/tgip.txt" "Telegram IP" && success=$((success + 1)) || failed=$((failed + 1))
 
-# ---- 域名规则 ----
-copy_file "$INPUT_DIR/cdn_domain.txt" "$OUTPUT_DIR/domain/cdn.txt" "CDN 域名" && ((success++)) || ((failed++))
+  copy_rule "$INPUT_DIR/cdn_domain.txt" "$OUTPUT_DIR/domain/cdn.txt" "CDN 域名" && success=$((success + 1)) || failed=$((failed + 1))
 
-# ---- 经典规则 ----
-copy_file "$INPUT_DIR/cdn_classical.txt" "$OUTPUT_DIR/classical/cdn.txt" "CDN 规则" && ((success++)) || ((failed++))
-copy_file "$INPUT_DIR/global.txt" "$OUTPUT_DIR/classical/global.txt" "全球规则" && ((success++)) || ((failed++))
-copy_file "$INPUT_DIR/domestic.txt" "$OUTPUT_DIR/classical/cn.txt" "国内规则" && ((success++)) || ((failed++))
-merge_files "$OUTPUT_DIR/classical/lan.txt" "局域网" "$INPUT_DIR/lan_classical.txt" "$INPUT_DIR/lan_ip.txt" && ((success++)) || ((failed++))
-copy_file "$INPUT_DIR/ai.txt" "$OUTPUT_DIR/classical/ai.txt" "AI 规则" && ((success++)) || ((failed++))
+  copy_rule "$INPUT_DIR/cdn_classical.txt" "$OUTPUT_DIR/classical/cdn.txt" "CDN 规则" && success=$((success + 1)) || failed=$((failed + 1))
+  copy_rule "$INPUT_DIR/global.txt" "$OUTPUT_DIR/classical/global.txt" "全球规则" && success=$((success + 1)) || failed=$((failed + 1))
+  copy_rule "$INPUT_DIR/domestic.txt" "$OUTPUT_DIR/classical/cn.txt" "国内规则" && success=$((success + 1)) || failed=$((failed + 1))
+  merge_rules "$OUTPUT_DIR/classical/lan.txt" "局域网规则" "$INPUT_DIR/lan_classical.txt" "$INPUT_DIR/lan_ip.txt" && success=$((success + 1)) || failed=$((failed + 1))
+  copy_rule "$INPUT_DIR/ai.txt" "$OUTPUT_DIR/classical/ai.txt" "AI 规则" && success=$((success + 1)) || failed=$((failed + 1))
 
-# ---- 清理临时文件 ----
-echo ""
-log_info "清理临时目录: $INPUT_DIR"
-rm -rf "$INPUT_DIR"
+  rm -rf "$INPUT_DIR"
+  info "处理完成: 成功 $success / 失败 $failed"
 
-echo ""
-echo "=========================================="
-echo " 处理完成: 成功 $success / 失败 $failed"
-echo "=========================================="
-echo ""
-
-if [[ $failed -gt 0 ]]; then
-    log_warn "部分文件处理失败，建议重新下载"
+  if [[ "$failed" -gt 0 ]]; then
+    err "有文件处理失败，请重新下载后再试"
     exit 1
-fi
+  fi
+}
 
-log_info "所有文件处理成功，可以运行 ./git-push.sh 提交"
+main "$@"
