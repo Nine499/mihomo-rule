@@ -122,9 +122,9 @@ success=0
 failed=0
 for i in "${!DOWNLOADS[@]}"; do
     if [[ -f "$TEMP_DIR/.result_$i" ]] && [[ $(cat "$TEMP_DIR/.result_$i") == "1" ]]; then
-        ((success++))
+        success=$((success + 1))
     else
-        ((failed++))
+        failed=$((failed + 1))
     fi
     rm -f "$TEMP_DIR/.result_$i"
 done
