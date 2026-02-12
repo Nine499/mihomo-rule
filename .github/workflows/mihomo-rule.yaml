@@ -3,7 +3,7 @@ name: 下载并处理 mihomo 规则
 on:
   workflow_dispatch:
   schedule:
-    - cron: "15 15 * * *"  # UTC 15:15 = 北京时间 23:15
+    - cron: "15 15 * * *" # UTC 15:15 = 北京时间 23:15
 
 permissions:
   contents: write
@@ -17,14 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 检出代码仓库
-        uses: actions/checkout@v4
+        uses: actions/checkout@main
 
       - name: 下载规则
-        uses: nick-fields/retry@v3
-        with:
-          timeout_minutes: 10
-          max_attempts: 3
-          command: bash dev/curl-rule.sh
+        run: bash dev/curl-rule.sh
 
       - name: 处理规则
         run: bash dev/process-rule.sh
