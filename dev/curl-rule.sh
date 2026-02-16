@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
+source "$(dirname "$0")/common.sh"
 
 # 这个脚本只做一件事：把规则文件下载到 tmp/ 目录。
 # 如果某个文件下载失败，会自动重试，最终失败会退出并返回非 0。
@@ -23,9 +24,9 @@ readonly DOWNLOADS=(
   "https://ruleset.skk.moe/Clash/non_ip/ai.txt|$TEMP_DIR/ai.txt|AI 规则"
 )
 
-info() { printf '[INFO] %s\n' "$*"; }
-warn() { printf '[WARN] %s\n' "$*"; }
-err() { printf '[ERROR] %s\n' "$*"; }
+info() { log_info "$*"; }
+warn() { log_warn "$*"; }
+err() { log_error "$*"; }
 
 is_valid_file() {
   local file="$1"

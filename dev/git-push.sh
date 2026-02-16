@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
+source "$(dirname "$0")/common.sh"
 
 # 这个脚本只提交 bot-mihomo/ 的变更，并推送到当前分支。
 
@@ -7,8 +8,8 @@ readonly TARGET_DIR="bot-mihomo"
 readonly GIT_EMAIL="deceit-bucket-shy@duck.com"
 readonly GIT_USERNAME="Nine_Action_bot"
 
-info() { printf '[INFO] %s\n' "$*"; }
-err() { printf '[ERROR] %s\n' "$*"; }
+info() { log_info "$*"; }
+err() { log_error "$*"; }
 
 main() {
   local commit_msg

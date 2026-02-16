@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
+source "$(dirname "$0")/common.sh"
 
 # 这个脚本负责把 tmp/ 的下载结果整理到 bot-mihomo/。
 # 缺文件会记为失败，最后统一给出统计。
@@ -7,9 +8,9 @@ set -euo pipefail
 readonly INPUT_DIR="tmp"
 readonly OUTPUT_DIR="bot-mihomo"
 
-info() { printf '[INFO] %s\n' "$*"; }
-warn() { printf '[WARN] %s\n' "$*"; }
-err() { printf '[ERROR] %s\n' "$*"; }
+info() { log_info "$*"; }
+warn() { log_warn "$*"; }
+err() { log_error "$*"; }
 
 copy_rule() {
   local src="$1"
