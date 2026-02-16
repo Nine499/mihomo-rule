@@ -1,20 +1,16 @@
-name: 更新 mihomo 规则
-
+name: mihomo-rule-name
 on:
   workflow_dispatch:
   schedule:
     - cron: "15 15 * * *"
-
-concurrency:
-  group: update-rules
-  cancel-in-progress: false
-
 jobs:
-  update-rules:
+  mihomo-rule-jobs:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - run: ./dev/curl-rule.sh
-      - run: ./dev/process-rule.sh
-      - run: ./dev/git-push.sh
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run scripts
+        run: |
+          dev/download_tmp_rule.sh
+          dev/processing_rules.sh
+          dev/push.sh
