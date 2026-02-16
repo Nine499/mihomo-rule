@@ -3,32 +3,20 @@ name: 更新 mihomo 规则
 on:
   workflow_dispatch:
   schedule:
-    - cron: "15 15 * * *" # UTC 15:15 = 北京时间 23:15
+    - cron: "15 15 * * *"
 
 permissions:
   contents: write
 
 concurrency:
-  group: mihomo-rule-${{ github.ref }}
-  cancel-in-progress: true
+  group: update-rules
+  cancel-in-progress: false
 
 jobs:
   update-rules:
-    name: 下载 -> 处理 -> 提交
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    defaults:
-      run:
-        shell: bash
     steps:
-      - name: 检出仓库
-        uses: actions/checkout@v4
-
-      - name: 下载规则
-        run: ./dev/curl-rule.sh
-
-      - name: 处理规则
-        run: ./dev/process-rule.sh
-
-      - name: 提交并推送
-        run: ./dev/git-push.sh
+      - uses: actions/checkout@v4
+      - run: ./dev/curl-rule.sh
+      - run: ./dev/process-rule.sh
+      - run: ./dev/git-push.sh
