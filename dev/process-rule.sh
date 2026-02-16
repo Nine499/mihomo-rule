@@ -2,29 +2,17 @@
 set -euo pipefail
 source "$(dirname "$0")/common.sh"
 
-# 这个脚本负责把 tmp/ 的下载结果整理到 bot-mihomo/。
-# 缺文件会记为失败，最后统一给出统计。
-
 readonly INPUT_DIR="tmp"
 readonly OUTPUT_DIR="bot-mihomo"
-
-info() { log_info "$*"; }
-warn() { log_warn "$*"; }
-err() { log_error "$*"; }
 
 copy_rule() {
   local src="$1"
   local dst="$2"
   local name="$3"
 
-  if [[ ! -f "$src" ]]; then
-    warn "跳过: $name (缺少文件 $(basename "$src"))"
-    return 1
-  fi
-
+  require_file "$src"
   cp "$src" "$dst"
-  info "复制完成: $name ($(wc -l < "$dst") 行)"
-  return 0
+  log_info "复制完成: $name ($(line_count "$dst") 行)"
 }
 
 merge_rules() {
@@ -34,49 +22,31 @@ merge_rules() {
   local src
 
   for src in "$@"; do
-    if [[ ! -f "$src" ]]; then
-      warn "跳过: $name (缺少文件 $(basename "$src"))"
-      return 1
-    fi
+    require_file "$src"
   done
 
   sort -u "$@" > "$dst"
-  info "合并完成: $name ($(wc -l < "$dst") 行)"
-  return 0
+  log_info "合并完成: $name ($(line_count "$dst") 行)"
 }
 
 main() {
-  local success failed
-
-  if [[ ! -d "$INPUT_DIR" ]]; then
-    err "找不到输入目录: $INPUT_DIR"
-    err "请先运行 ./dev/curl-rule.sh"
-    exit 1
-  fi
+  require_dir "$INPUT_DIR"
 
   mkdir -p "$OUTPUT_DIR/ip" "$OUTPUT_DIR/domain" "$OUTPUT_DIR/classical"
 
-  success=0
-  failed=0
+  merge_rules "$OUTPUT_DIR/ip/cn.txt" "中国 IP" "$INPUT_DIR/cnipv4.txt" "$INPUT_DIR/cnipv6.txt"
+  copy_rule "$INPUT_DIR/tgip.txt" "$OUTPUT_DIR/ip/tgip.txt" "Telegram IP"
 
-  merge_rules "$OUTPUT_DIR/ip/cn.txt" "中国 IP" "$INPUT_DIR/cnipv4.txt" "$INPUT_DIR/cnipv6.txt" && success=$((success + 1)) || failed=$((failed + 1))
-  copy_rule "$INPUT_DIR/tgip.txt" "$OUTPUT_DIR/ip/tgip.txt" "Telegram IP" && success=$((success + 1)) || failed=$((failed + 1))
+  copy_rule "$INPUT_DIR/cdn_domain.txt" "$OUTPUT_DIR/domain/cdn.txt" "CDN 域名"
 
-  copy_rule "$INPUT_DIR/cdn_domain.txt" "$OUTPUT_DIR/domain/cdn.txt" "CDN 域名" && success=$((success + 1)) || failed=$((failed + 1))
-
-  copy_rule "$INPUT_DIR/cdn_classical.txt" "$OUTPUT_DIR/classical/cdn.txt" "CDN 规则" && success=$((success + 1)) || failed=$((failed + 1))
-  copy_rule "$INPUT_DIR/global.txt" "$OUTPUT_DIR/classical/global.txt" "全球规则" && success=$((success + 1)) || failed=$((failed + 1))
-  copy_rule "$INPUT_DIR/domestic.txt" "$OUTPUT_DIR/classical/cn.txt" "国内规则" && success=$((success + 1)) || failed=$((failed + 1))
-  merge_rules "$OUTPUT_DIR/classical/lan.txt" "局域网规则" "$INPUT_DIR/lan_classical.txt" "$INPUT_DIR/lan_ip.txt" && success=$((success + 1)) || failed=$((failed + 1))
-  copy_rule "$INPUT_DIR/ai.txt" "$OUTPUT_DIR/classical/ai.txt" "AI 规则" && success=$((success + 1)) || failed=$((failed + 1))
+  copy_rule "$INPUT_DIR/cdn_classical.txt" "$OUTPUT_DIR/classical/cdn.txt" "CDN 规则"
+  copy_rule "$INPUT_DIR/global.txt" "$OUTPUT_DIR/classical/global.txt" "全球规则"
+  copy_rule "$INPUT_DIR/domestic.txt" "$OUTPUT_DIR/classical/cn.txt" "国内规则"
+  merge_rules "$OUTPUT_DIR/classical/lan.txt" "局域网规则" "$INPUT_DIR/lan_classical.txt" "$INPUT_DIR/lan_ip.txt"
+  copy_rule "$INPUT_DIR/ai.txt" "$OUTPUT_DIR/classical/ai.txt" "AI 规则"
 
   rm -rf "$INPUT_DIR"
-  info "处理完成: 成功 $success / 失败 $failed"
-
-  if [[ "$failed" -gt 0 ]]; then
-    err "有文件处理失败，请重新下载后再试"
-    exit 1
-  fi
+  log_info "处理完成"
 }
 
 main "$@"
