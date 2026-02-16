@@ -12,7 +12,7 @@ info() { log_info "$*"; }
 err() { log_error "$*"; }
 
 main() {
-  local commit_msg git_username git_email
+  local commit_msg git_username git_email current_branch
 
   if ! git rev-parse --git-dir >/dev/null 2>&1; then
     err "当前目录不是 Git 仓库"
@@ -25,7 +25,17 @@ main() {
     exit 1
   fi
 
+  if git diff --cached --name-only | grep -vE "^${TARGET_DIR}/" >/dev/null; then
+    err "暂存区存在非 ${TARGET_DIR}/ 的文件，请先清理暂存区"
+    exit 1
+  fi
+
   git add "$TARGET_DIR"
+
+  if git diff --cached --name-only | grep -vE "^${TARGET_DIR}/" >/dev/null; then
+    err "暂存区存在非 ${TARGET_DIR}/ 的文件，请先清理暂存区"
+    exit 1
+  fi
 
   if git diff --cached --quiet; then
     info "没有可提交的变更"
@@ -39,7 +49,13 @@ main() {
   git -c user.name="$git_username" -c user.email="$git_email" commit -m "$commit_msg"
   info "提交成功: $commit_msg"
 
-  git push
+  current_branch="$(git branch --show-current)"
+  if [[ -z "$current_branch" ]]; then
+    err "无法识别当前分支"
+    exit 1
+  fi
+
+  git push origin "$current_branch"
   info "推送成功"
 }
 
