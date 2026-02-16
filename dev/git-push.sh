@@ -5,8 +5,6 @@ source "$(dirname "$0")/common.sh"
 # 这个脚本只提交 bot-mihomo/ 的变更，并推送到当前分支。
 
 readonly TARGET_DIR="bot-mihomo"
-readonly GIT_EMAIL="deceit-bucket-shy@duck.com"
-readonly GIT_USERNAME="Nine_Action_bot"
 
 info() { log_info "$*"; }
 err() { log_error "$*"; }
@@ -25,18 +23,12 @@ main() {
     exit 1
   fi
 
-  git config --local user.email "$GIT_EMAIL"
-  git config --local user.name "$GIT_USERNAME"
-
   git add "$TARGET_DIR"
 
   if git diff --cached --quiet; then
     info "没有可提交的变更"
     exit 0
   fi
-
-  info "本次变更："
-  git diff --cached --stat
 
   commit_msg="auto: update rules $(date '+%Y-%m-%d %H:%M:%S')"
   git commit -m "$commit_msg"
