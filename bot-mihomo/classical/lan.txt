@@ -1,16 +1,5 @@
 
 #
-# GitHub: https://github.com/SukkaW/Surge
-# Homepage: https://ruleset.skk.moe
-# Includes rules for LAN IP addresses and .local suffix.
-# Last Updated: 2025-07-21T08:09:50.373Z
-# Last Updated: 2025-08-17T09:04:38.792Z
-# License: AGPL 3.0
-# Size: 12
-# Size: 52
-# Sukka's Ruleset - LAN
-# This file includes rules for LAN DOMAIN and reserved TLDs.
-################## EOF ##################
 #########################################
 DOMAIN,7h1s_rul35et_i5_mad3_by_5ukk4w-ruleset.skk.moe
 DOMAIN,aterm.me
@@ -23,7 +12,6 @@ DOMAIN,pi.hole
 DOMAIN,repeater.asus.com
 DOMAIN,router.asus.com
 DOMAIN,setmeup.arubanetworks.com
-DOMAIN,unifi
 DOMAIN-SUFFIX,10.in-addr.arpa
 DOMAIN-SUFFIX,127.0.0.1.sslip.io
 DOMAIN-SUFFIX,127.atlas.skk.moe
@@ -64,6 +52,11 @@ DOMAIN-SUFFIX,tplinkrepeater.net
 DOMAIN-SUFFIX,tplinkwifi.net
 DOMAIN-SUFFIX,tplogin.cn
 DOMAIN-SUFFIX,ui.direct
+DOMAIN,unifi
+################## EOF ##################
+# GitHub: https://github.com/SukkaW/Surge
+# Homepage: https://ruleset.skk.moe
+# Includes rules for LAN IP addresses and .local suffix.
 IP-CIDR,0.0.0.0/8
 IP-CIDR,10.0.0.0/8
 IP-CIDR,100.64.0.0/10
@@ -75,3 +68,10 @@ IP-CIDR,224.0.0.0/4
 IP-CIDR6,::1/128
 IP-CIDR6,fc00::/7
 IP-CIDR6,fe80::/10
+# Last Updated: 2025-07-21T08:09:50.373Z
+# Last Updated: 2025-08-17T09:04:38.792Z
+# License: AGPL 3.0
+# Size: 12
+# Size: 52
+# Sukka's Ruleset - LAN
+# This file includes rules for LAN DOMAIN and reserved TLDs.
