@@ -5,9 +5,6 @@ on:
   schedule:
     - cron: "15 15 * * *"
 
-permissions:
-  contents: write
-
 concurrency:
   group: update-rules
   cancel-in-progress: false
