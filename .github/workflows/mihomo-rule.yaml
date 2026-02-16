@@ -11,6 +11,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Run scripts
         run: |
-          dev/download_tmp_rule.sh
-          dev/processing_rules.sh
-          dev/push.sh
+          bash dev/download_tmp_rule.sh
+          bash dev/processing_rules.sh
+          bash dev/push.sh
