@@ -70,33 +70,20 @@ download_one() {
 }
 
 main() {
-  local total success failed
+  local total
   local item url output name
 
   mkdir -p "$TEMP_DIR"
 
   total=${#DOWNLOADS[@]}
-  success=0
-  failed=0
-
   info "开始下载规则文件，总数: $total"
 
   for item in "${DOWNLOADS[@]}"; do
     IFS='|' read -r url output name <<< "$item"
-
-    if download_one "$url" "$output" "$name"; then
-      success=$((success + 1))
-    else
-      failed=$((failed + 1))
-    fi
+    download_one "$url" "$output" "$name"
   done
 
-  info "下载完成: 成功 $success / 失败 $failed / 总数 $total"
-
-  if [[ "$failed" -gt 0 ]]; then
-    err "有文件下载失败，请稍后重试"
-    exit 1
-  fi
+  info "下载完成: 成功 $total / 失败 0 / 总数 $total"
 }
 
 main "$@"
