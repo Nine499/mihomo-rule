@@ -19,5 +19,9 @@ install -D tmp-rule/domestic.txt bot-mihomo/classical/cn.txt
 # tmp-rule/global.txt 的内容覆盖 bot-mihomo/classical/global.txt 文件不存在就生成
 install -D tmp-rule/global.txt bot-mihomo/classical/global.txt
 
+# tmp-rule/lan_classical.txt 和 tmp-rule/lan_ip.txt 内容合一起覆盖 bot-mihomo/classical/lan.txt  文件不存在就生成
+install -D tmp-rule/lan_classical.txt bot-mihomo/classical/lan.txt
+cat tmp-rule/lan_classical.txt tmp-rule/lan_ip.txt > bot-mihomo/classical/lan.txt
+
 # tmp-rule/tgip.txt 的内容覆盖 bot-mihomo/ip/tgip.txt 文件不存在就生成
 install -D tmp-rule/tgip.txt bot-mihomo/ip/tgip.txt

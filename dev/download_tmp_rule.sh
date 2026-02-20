@@ -10,6 +10,8 @@ downloads=(
   "https://ruleset.skk.moe/Clash/non_ip/cdn.txt|cdn_classical.txt"
   "https://ruleset.skk.moe/Clash/non_ip/global.txt|global.txt"
   "https://ruleset.skk.moe/Clash/non_ip/domestic.txt|domestic.txt"
+  "https://ruleset.skk.moe/Clash/non_ip/lan.txt|lan_classical.txt"
+  "https://ruleset.skk.moe/Clash/ip/lan.txt|lan_ip.txt"
   "https://ruleset.skk.moe/Clash/non_ip/ai.txt|ai.txt"
 )
 
