@@ -1,0 +1,11 @@
+0.0.0.0/8,no-resolve
+10.0.0.0/8,no-resolve
+100.64.0.0/10,no-resolve
+127.0.0.0/8,no-resolve
+169.254.0.0/16,no-resolve
+172.16.0.0/12,no-resolve
+192.168.0.0/16,no-resolve
+224.0.0.0/4,no-resolve
+::1/128,no-resolve
+fc00::/7,no-resolve
+fe80::/10,no-resolve
