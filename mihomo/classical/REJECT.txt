@@ -1,0 +1,2 @@
+AND,((DST-PORT,443),(NETWORK,udp))
+DOMAIN-SUFFIX,msmp.abchina.com.cn
