@@ -1,16 +1,15 @@
-name: mihomo-rule-name
+name: D-IP-name
 on:
   workflow_dispatch:
   schedule:
     - cron: "15 15 * * *"
 jobs:
-  mihomo-rule-jobs:
+  D-IP-jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@main
       - name: Run scripts
         run: |
-          bash dev/download_tmp_rule.sh
-          bash dev/processing_rules.sh
-          bash dev/push.sh
+          bash dev/D-IP.sh
+          bash dev/git-push.sh
