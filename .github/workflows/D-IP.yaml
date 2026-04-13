@@ -1,10 +1,10 @@
-name: D-IP-name
+name: D-IP
 on:
   workflow_dispatch:
   schedule:
     - cron: "15 15 * * *"
 jobs:
-  D-IP-jobs:
+  d_ip_job:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
