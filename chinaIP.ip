@@ -1,7 +1,7 @@
 #########################################
 # Sukka's Ruleset - Mainland China IPv4 CIDR
-# Last Updated: 2026-04-20T07:13:50.401Z
-# Size: 3917
+# Last Updated: 2026-04-21T03:37:05.811Z
+# Size: 3915
 # License: CC BY-SA 2.0
 # Homepage: https://ruleset.skk.moe
 # GitHub: https://github.com/SukkaW/Surge
@@ -416,7 +416,6 @@
 45.249.212.0/22
 45.250.32.0/22
 45.250.40.0/22
-45.250.152.0/23
 45.250.180.0/23
 45.250.184.0/22
 45.250.188.0/24
@@ -993,7 +992,6 @@
 103.78.228.0/22
 103.79.24.0/22
 103.79.200.0/22
-103.79.228.0/24
 103.81.4.0/22
 103.81.72.0/22
 103.81.123.0/24
@@ -3929,8 +3927,8 @@
 ################## EOF ##################
 #########################################
 # Sukka's Ruleset - Mainland China IPv6 CIDR
-# Last Updated: 2026-04-20T07:13:50.402Z
-# Size: 1466
+# Last Updated: 2026-04-21T06:56:55.545Z
+# Size: 1467
 # License: CC BY-SA 2.0
 # Homepage: https://ruleset.skk.moe
 # GitHub: https://github.com/SukkaW/Surge
@@ -5332,7 +5330,8 @@
 2a0f:1cc5:1c00::/47
 2a0f:1cc5:1c02::/48
 2a0f:1cc5:1c30::/48
-2a0f:1cc5:1d10::/48
+2a0f:1cc5:1cc0::/48
+2a0f:1cc5:1d10::/47
 2a0f:1cc5:1d14::/48
 2a0f:1cc5:2510::/44
 2a0f:1cc5:2520::/44
