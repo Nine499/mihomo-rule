@@ -1,4 +1,4 @@
 # 目标端口为 443 的 UDP 协议数据包
-#AND,((NETWORK,UDP),(DST-PORT,443))
+AND,((NETWORK,UDP),(DST-PORT,443))
 # 农业银行检测VPN
 DOMAIN-SUFFIX,msmp.abchina.com.cn
