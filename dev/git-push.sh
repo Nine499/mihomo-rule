@@ -2,7 +2,7 @@
 set -e
 
 # add 必要文件
-git add telegram.ip chinaIP.ip
+git add telegram.ip chinaIP.ip LAN.classical
 
 # 增加用户信息
 git config user.name "Nine_Action_bot"
