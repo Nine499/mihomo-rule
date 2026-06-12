@@ -1,4 +1,4 @@
-# UDP 443 端口的非中国 IP 流量
-AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((RULE-SET,chinaIP-ip))))
+# UDP 443 流量
+AND,((NETWORK,udp),(DST-PORT,443))
 # 农业银行检测VPN
 DOMAIN-SUFFIX,msmp.abchina.com.cn
