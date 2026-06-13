@@ -1,4 +1,4 @@
 # UDP 443 流量
-AND,((NETWORK,udp),(DST-PORT,443))
+#AND,((NETWORK,udp),(DST-PORT,443))
 # 农业银行检测VPN
 DOMAIN-SUFFIX,msmp.abchina.com.cn
