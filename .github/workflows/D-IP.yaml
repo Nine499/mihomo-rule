@@ -1,0 +1,15 @@
+name: D-IP
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 15 * * *"
+jobs:
+  d_ip_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+      - name: Run scripts
+        run: |
+          bash dev/D-IP.sh
+          bash dev/git-push.sh
