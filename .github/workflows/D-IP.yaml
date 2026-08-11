@@ -3,6 +3,11 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "15 15 * * *"
+permissions:
+  contents: write
+concurrency:
+  group: update-rules
+  cancel-in-progress: false
 jobs:
   d_ip_job:
     runs-on: ubuntu-latest
