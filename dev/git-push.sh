@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-readonly TARGET_FILES=(telegram.ip chinaIP.ip LAN.classical ads.domain)
+readonly TARGET_FILES=(telegram.ip chinaIP.ip LAN.classical)
 readonly REPORT_TITLE='## Rule 更新报告'
 readonly NO_CHANGE_MESSAGE='所有规则文件均无变化，未创建 commit，未执行 push。'
 
