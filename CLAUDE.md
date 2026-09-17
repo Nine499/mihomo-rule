@@ -19,10 +19,10 @@ git diff
 git diff -- <file>
 
 # 仅检查更新脚本语法；不访问网络、不写规则文件，也不推送
-bash -n dev/D-IP.sh dev/git-push.sh
+bash -n dev/update-rules.sh dev/commit-and-push.sh dev/lib/*.sh
 
 # 从上游重新生成三个自动产物；需要网络和 curl，会改写目标文件
-bash dev/D-IP.sh
+bash dev/update-rules.sh
 git diff -- chinaIP.ip telegram.ip LAN.classical
 ```
 
@@ -32,28 +32,29 @@ git diff -- chinaIP.ip telegram.ip LAN.classical
 git diff -- <目标规则文件>
 ```
 
-`bash dev/git-push.sh` 会暂存四个自动产物，在有变化时创建 commit 并执行真实 `git push`。除非用户明确要求远端写入，不要运行它，也不要将其作为验证命令。
+`bash dev/commit-and-push.sh` 会暂存配置文件中定义的自动产物，在有变化时创建 commit 并执行真实 `git push`。除非用户明确要求远端写入，不要运行它，也不要将其作为验证命令。
 
 ## 自动更新链路
 
-`dev/D-IP.sh` 是唯一的生成入口：
+更新流程拆分为配置与模块，入口脚本各自很薄：
 
-1. 创建临时目录。
-2. 下载中国 IPv4、Telegram CIDR、LAN IP 与 LAN 域名。
-3. 合并 LAN IP 与 LAN 域名数据。
-4. 全部下载及解析成功后，才以 `mv` 原子替换 `chinaIP.ip`、`telegram.ip` 与 `LAN.classical`。
+- **数据源配置** `dev/config/sources.conf`：每行一条 `目标文件|源URL1,源URL2`；`LAN.classical` 由两个源按顺序拼接而成。增删规则源只改这一个文件，无需改动脚本逻辑。
+- **下载模块** `dev/lib/download.sh`：`download_all` 并发下载配置中的每个目标到临时目录并按顺序拼接；`apply_targets` 在全部下载成功后才用 `mv` 原子替换仓库根目录文件。
+- **Git 操作模块** `dev/lib/git-ops.sh`：封装机器人身份配置、暂存、numstat 差异读取、提交、推送。
+- **报告模块** `dev/lib/report.sh`：生成 Markdown 表格行，并同时输出到终端与 `GITHUB_STEP_SUMMARY`。
+- **入口脚本** `dev/update-rules.sh`：调用下载模块完成生成；`dev/commit-and-push.sh`：调用 git 操作与报告模块完成暂存、统计、提交、推送。
 
-因此，调整自动规则应修改生成逻辑或其上游输入后重跑脚本，而不是编辑生成结果。脚本失败时，三个仓库内目标文件不会在中途被覆盖。
+因此，调整自动规则应修改 `sources.conf` 或下载模块后重跑 `dev/update-rules.sh`，而不是编辑生成结果。脚本失败时，三个仓库内目标文件不会在中途被覆盖。
 
 ## 自动化与远端写入
 
-`.github/workflows/D-IP.yaml` 定义 `D-IP` 工作流：支持 `workflow_dispatch` 和 cron `15 15 * * *`，在 `ubuntu-latest` 上依次运行 `dev/D-IP.sh`、`dev/git-push.sh`，并拥有 `contents: write` 权限。
+`.github/workflows/D-IP.yaml` 定义 `D-IP` 工作流：支持 `workflow_dispatch` 和 cron `15 15 * * *`，在 `ubuntu-latest` 上依次运行 `dev/update-rules.sh`、`dev/commit-and-push.sh`，并拥有 `contents: write` 权限。
 
-`dev/git-push.sh` 仅处理 `telegram.ip`、`chinaIP.ip` 与 `LAN.classical`：它暂存这些文件、生成 GitHub Step Summary、在存在变更时提交并推送。修改该脚本或工作流时，只做静态语法检查与限定 diff 核对；不要触发真实 push 来验证。
+`dev/commit-and-push.sh` 处理的目标文件集合来自 `dev/config/sources.conf`（当前为 `chinaIP.ip`、`telegram.ip`、`LAN.classical`）：它暂存这些文件、生成 GitHub Step Summary、在存在变更时提交并推送。修改该脚本、`dev/lib/git-ops.sh`、`dev/lib/report.sh` 或工作流时，只做静态语法检查与限定 diff 核对；不要触发真实 push 来验证。
 
 ## 修改边界
 
 - 修改静态规则：只编辑指定规则文件，并用限定路径的 `git diff` 核对语法、条目及无关改动。
-- 修改生成链路：运行 `bash dev/D-IP.sh` 后，仅检查三个自动产物的差异。
+- 修改生成链路：改 `dev/config/sources.conf` 增删源，或改 `dev/lib/download.sh` 调整拼接逻辑；运行 `bash dev/update-rules.sh` 后，仅检查三个自动产物的差异。
 - 不引入构建系统、依赖管理、目录包装或额外产物；仓库当前的根目录规则文件布局就是发布形式。
-- 修改 `dev/git-push.sh` 或 `.github/workflows/D-IP.yaml` 前，明确其会影响自动提交、推送及仓库写权限；未经明确授权不得运行可能创建 commit 或写入远端的命令。
+- 修改 `dev/commit-and-push.sh`、`dev/lib/git-ops.sh`、`dev/lib/report.sh` 或 `.github/workflows/D-IP.yaml` 前，明确其会影响自动提交、推送及仓库写权限；未经明确授权不得运行可能创建 commit 或写入远端的命令。

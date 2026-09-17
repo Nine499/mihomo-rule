@@ -9,12 +9,14 @@ concurrency:
   group: update-rules
   cancel-in-progress: false
 jobs:
-  d_ip_job:
+  update_rules:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@main
-      - name: Run scripts
-        run: |
-          bash dev/D-IP.sh
-          bash dev/git-push.sh
+
+      - name: Update rules
+        run: bash dev/update-rules.sh
+
+      - name: Commit and push
+        run: bash dev/commit-and-push.sh
