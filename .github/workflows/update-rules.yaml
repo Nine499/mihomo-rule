@@ -1,4 +1,4 @@
-name: D-IP
+name: Update Rules
 on:
   workflow_dispatch:
   schedule:

@@ -48,7 +48,7 @@ git diff -- <目标规则文件>
 
 ## 自动化与远端写入
 
-`.github/workflows/D-IP.yaml` 定义 `D-IP` 工作流：支持 `workflow_dispatch` 和 cron `15 15 * * *`，在 `ubuntu-latest` 上依次运行 `dev/update-rules.sh`、`dev/commit-and-push.sh`，并拥有 `contents: write` 权限。
+`.github/workflows/update-rules.yaml` 定义 `Update Rules` 工作流：支持 `workflow_dispatch` 和 cron `15 15 * * *`，在 `ubuntu-latest` 上依次运行 `dev/update-rules.sh`、`dev/commit-and-push.sh`，并拥有 `contents: write` 权限。
 
 `dev/commit-and-push.sh` 处理的目标文件集合来自 `dev/config/sources.conf`（当前为 `chinaIP.ip`、`telegram.ip`、`LAN.classical`）：它暂存这些文件、生成 GitHub Step Summary、在存在变更时提交并推送。修改该脚本、`dev/lib/git-ops.sh`、`dev/lib/report.sh` 或工作流时，只做静态语法检查与限定 diff 核对；不要触发真实 push 来验证。
 
@@ -57,4 +57,4 @@ git diff -- <目标规则文件>
 - 修改静态规则：只编辑指定规则文件，并用限定路径的 `git diff` 核对语法、条目及无关改动。
 - 修改生成链路：改 `dev/config/sources.conf` 增删源，或改 `dev/lib/download.sh` 调整拼接逻辑；运行 `bash dev/update-rules.sh` 后，仅检查三个自动产物的差异。
 - 不引入构建系统、依赖管理、目录包装或额外产物；仓库当前的根目录规则文件布局就是发布形式。
-- 修改 `dev/commit-and-push.sh`、`dev/lib/git-ops.sh`、`dev/lib/report.sh` 或 `.github/workflows/D-IP.yaml` 前，明确其会影响自动提交、推送及仓库写权限；未经明确授权不得运行可能创建 commit 或写入远端的命令。
+- 修改 `dev/commit-and-push.sh`、`dev/lib/git-ops.sh`、`dev/lib/report.sh` 或 `.github/workflows/update-rules.yaml` 前，明确其会影响自动提交、推送及仓库写权限；未经明确授权不得运行可能创建 commit 或写入远端的命令。
