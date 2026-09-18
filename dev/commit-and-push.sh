@@ -37,7 +37,7 @@ main() {
   for file in "${targets[@]}"; do
     stats="$(git_diff_stat "$file")"
     if [[ -z "$stats" ]]; then
-      report+="$(report_row "$file" '无变化' 0 0)"
+      report+="$(report_row "$file" '无变化' 0 0)"$'\n'
       continue
     fi
 
@@ -46,11 +46,11 @@ main() {
 
     if [[ "$added" == '-' ]]; then
       binary=$((binary + 1))
-      report+="$(report_row "$file" '已更新(二进制)' '-' '-')"
+      report+="$(report_row "$file" '已更新(二进制)' '-' '-')"$'\n'
       continue
     fi
 
-    report+="$(report_row "$file" '已更新' "$added" "$deleted")"
+    report+="$(report_row "$file" '已更新' "$added" "$deleted")"$'\n'
     total_add=$((total_add + added))
     total_del=$((total_del + deleted))
   done
