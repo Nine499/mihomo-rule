@@ -2,12 +2,13 @@
 
 mkdir -p 49tmp49
 
-curl -fSL -o 49tmp49/cnip.txt https://ruleset.skk.moe/Clash/ip/china_ip.txt
+curl -fSL -o 49tmp49/cnip4.txt https://ruleset.skk.moe/Clash/ip/china_ip.txt
+curl -fSL -o 49tmp49/cnip6.txt https://ruleset.skk.moe/Clash/ip/china_ip_ipv6.txt
 curl -fSL -o 49tmp49/tgip.txt https://core.telegram.org/resources/cidr.txt
 curl -fSL -o 49tmp49/lanip1.txt https://ruleset.skk.moe/Clash/ip/lan.txt
 curl -fSL -o 49tmp49/lanip2.txt https://ruleset.skk.moe/Clash/non_ip/lan.txt
 
-cat 49tmp49/cnip.txt > chinaIP.ip
+cat 49tmp49/cnip4.txt 49tmp49/cnip6.txt > chinaIP.ip
 cat 49tmp49/tgip.txt > telegram.ip
 cat 49tmp49/lanip1.txt 49tmp49/lanip2.txt > LAN.classical
 
