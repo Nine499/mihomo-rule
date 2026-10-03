@@ -1,2 +1,3 @@
 DOMAIN-SUFFIX,api.github.com
-DOMAIN-KEYWORD,claude
+geosite:anthropic
+geosite:openai
