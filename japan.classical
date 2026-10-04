@@ -1,9 +1,7 @@
 # pixiv
-DOMAIN-SUFFIX,fanbox.cc
-DOMAIN-SUFFIX,pixiv.net
-DOMAIN-SUFFIX,pximg.net
+GEOSITE,pixiv
 # dlsite
-DOMAIN-SUFFIX,dlsite.com
+GEOSITE,dlsite
 # 批評空間
 DOMAIN-SUFFIX,erogamescape.org
 # 日本兜底

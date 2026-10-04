@@ -1,7 +1,5 @@
 # bahamut
-DOMAIN-SUFFIX,bahamut.akamaized.net
-DOMAIN-SUFFIX,gamer2-cds.cdn.hinet.net
-DOMAIN-SUFFIX,gamer-cds.cdn.hinet.net
+GEOSITE,bahamut
 # ptt
 DOMAIN-SUFFIX,ptt.cc
 # 台湾兜底

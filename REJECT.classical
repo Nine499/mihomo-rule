@@ -2,4 +2,4 @@
 DOMAIN-SUFFIX,msmp.abchina.com.cn
 
 # 境外QUIC
-AND,((NETWORK,udp),(DST-PORT,443),(NOT,((RULE-SET,chinaIP-ip))))
+AND,((NETWORK,udp),(DST-PORT,443),(NOT,((GEOIP,cn))))
