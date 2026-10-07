@@ -1,5 +1,5 @@
 # 农业银行检测VPN
 DOMAIN-SUFFIX,msmp.abchina.com.cn
 
-# 境外QUIC
-AND,((NETWORK,udp),(DST-PORT,443),(NOT,((GEOIP,cn))))
+# QUIC
+AND,((NETWORK,udp),(OR,((DST-PORT,443),(DST-PORT,8443))))
